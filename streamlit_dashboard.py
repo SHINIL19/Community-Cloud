@@ -77,11 +77,15 @@ def on_message(client, userdata, msg):
 
 # Start MQTT client
 client = mqtt.Client()
+
+# Add this for TLS/SSL
+client.tls_set("mosquitto.org.crt")  # This is the CA cert you downloaded
+
 client.on_connect = on_connect
 client.on_message = on_message
-client.tls_set()  # Uses default system CA certificates
 client.connect(BROKER, PORT, 60)
 client.loop_start()
+
 
 # STREAMLIT UI
 st.set_page_config(page_title="IoT AI Dashboard", layout="wide")
